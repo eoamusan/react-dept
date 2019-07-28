@@ -1,0 +1,3 @@
+.footer > div:first-of-type {
+    width: calc(100% - 100px);
+}

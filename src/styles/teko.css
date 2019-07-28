@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "Teko";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Teko Light"), local("Teko-Light"),
+    url(./Teko/Teko-Light.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Teko";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Teko Regular"), local("Teko-Regular"),
+    url(./Teko/Teko-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Teko";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Teko Medium"), local("Teko-Medium"),
+    url(./Teko/Teko-Medium.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Teko";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Teko SemiBold"), local("Teko-SemiBold"),
+    url(./Teko/Teko-SemiBold.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Teko";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Teko Bold"), local("Teko-Bold"),
+    url(./Teko/Teko-Bold.ttf) format("truetype");
+}
