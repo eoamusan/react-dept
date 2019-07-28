@@ -12,3 +12,7 @@
     right: calc(15% / 2);
     bottom: 100px;
 }
+
+.menu-header {
+    background: rgba(255, 255, 255, 0);
+}

@@ -30,11 +30,17 @@ body {
   display: block;
 }
 .display-inline {
-  display: inline;
+  display: inline-block;
+}
+.display-flex {
+  display: flex;
 }
 .clear-both {
   clear: both;
   float: unset !important;
+}
+.no-wrap {
+  white-space: nowrap;
 }
 .no_underline {
   border-bottom: none !important;
@@ -253,7 +259,7 @@ body {
 .width-20-percent {
   width: 20% !important;
 }
-.center_item {
+.center-item {
   position: absolute !important;
   top: 50%;
   left: 50%;
@@ -261,14 +267,14 @@ body {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
 }
-.center_item_vertically {
+.center-item-vertically {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
   -webkit-transform: translate(0, -50%);
   -moz-transform: translate(0, -50%);
 }
-.center_item_horizontally {
+.center-item-horizontally {
   position: absolute;
   left: 50% !important;
   transform: translate(-50%, 0);
@@ -544,6 +550,16 @@ body {
   box-sizing: border-box;
 }
 
+.input-container input:focus,
+.input-container textarea:focus {
+  border-bottom: 1px solid #1a18f7;
+}
+
+.input-container input:focus ~ label,
+.input-container textarea:focus ~ label {
+  color: #1a18f7;
+}
+
 .input-container input::placeholder {
   color: #ddd;
   font-size: 1.1rem;
@@ -660,6 +676,10 @@ body {
   filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
 }
 
+.smooth {
+  transition: all 0.2s;
+}
+
 .grayscale {
   filter: gray; /* IE6-9 */
   -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
@@ -674,4 +694,51 @@ button {
   outline: none;
   cursor: pointer;
   color: #fff;
+}
+
+button .icon {
+  width: 0;
+  height: 13px;
+  transition: all 0.2s;
+}
+
+button:hover .icon {
+  width: 30px;
+}
+
+.rotate-left {
+  transform: rotate(-90deg);
+}
+
+.scrolling {
+  position: fixed;
+  top: 0;
+  background: rgba(255, 255, 255, 0.9) !important;
+  width: 100% !important;
+  z-index: 1;
+  left: 0;
+}
+
+.scrolling.border-bottom-dark {
+  border-bottom: none;
+}
+.scrolling > div:first-of-type {
+  margin-left: 100px;
+}
+
+.scroll-top > div:last-of-type {
+  width: 0;
+  background: #000;
+}
+
+.scroll-top > div:first-of-type {
+  z-index: 1;
+}
+
+.scroll-top:hover > div:first-of-type {
+  color: #FFF !important;
+}
+
+.scroll-top:hover > div:last-of-type {
+  width: 100%;
 }

@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
 import styled from 'styled-components';
 import case1 from '../../images/cases/1.png';
 import case2 from '../../images/cases/2.png';
@@ -290,7 +294,7 @@ export class Home extends Component {
                     </div>
                     <div className="width-60-percent margin-auto top-padding-50">
                         {[...Array(16)].map((item, index) => (
-                            <Client data-aos="flip-up" key={index} client={require(`../../images/clients/${index + 1}.png`)} className="width-25-percent float-left height-100 center-bg bg-height-200 no-repeat-bg"></Client>
+                            <Client data-aos="flip-up" key={index} client={require(`../../images/clients/${index + 1}.png`)} className="width-25-percent float-left height-100 center-bg bg-height-200 no-repeat-bg cursor-pointer"></Client>
                         ))}
                         <div className="clear-both"></div>
                     </div>
@@ -339,12 +343,17 @@ export class Home extends Component {
                                 </label>
                             </div>
                         </div>
-                        <button type="submit" className="blue">
-                            <div>
-                                SEND
-                            </div>
-                            <div>
-                                
+                        <button type="submit" className="blue noselect">
+                            <div className="display-inline no-wrap">
+                                <div className="float-left">
+                                    SEND
+                                </div>
+                                <div className="overflow-hidden icon relative float-left">
+                                    <i className="material-icons center-item">
+                                        arrow_right_alt
+                                    </i>
+                                </div>
+                                <div className="clear-both"></div>
                             </div>
                         </button>
                     </div>
@@ -364,4 +373,14 @@ const Case6 = styled.div`background-image: url(${case6});`;
 const MajorCase1 = styled.div`background-image: url(${majorCase1});`;
 const Client = styled.div`background-image: url(${props => props.client})`;
 
-export default Home
+function mapStateToProps(state) {
+	return {
+		home: state.home
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+    
+}
+
+export default connect(mapStateToProps, {})(Home);
