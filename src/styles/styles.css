@@ -144,6 +144,9 @@ body {
 .height-20 {
   height: 20px;
 }
+.height-12 {
+  height: 12px;
+}
 .height-70 {
   height: 70px;
 }
@@ -361,7 +364,7 @@ body {
   background: #fff !important;
 }
 .offwhite {
-  background: #fdfdfd !important;
+  background: #EEE;
 }
 .absolute {
   position: absolute;

@@ -1,9 +1,11 @@
-import { homeConstants } from '../constants';
+import { homeConstants } from '../constants'
+import { fetchCards } from '../api';
 
 export const homeActions = {
     fixHeader,
     showMenu,
-    focusLink
+    focusLink,
+    fetchCardList
 };
 
 function fixHeader(type) {
@@ -28,4 +30,27 @@ function focusLink(type, link) {
     };
 
     function focusLink(type, link) { return { type: homeConstants.FOCUS_LINK, linkType: type, link }; }
+}
+
+function fetchCardList(type, link) {
+    return dispatch => {
+        dispatch(requestCards());
+
+        fetchCards('all')
+            .then(
+                cards => {
+                    console.log(cards);
+                    dispatch(success(cards));
+                },
+                error => {
+                    if (error.message) {
+                        dispatch(failure(error.message));
+                    }
+                }
+            );
+    };
+
+    function requestCards() { return { type: homeConstants.START_FETCH_CARDS }; }
+    function success(cards) { return { type: homeConstants.FETCH_CARDS_SUCCESS, cards }; }
+    function failure(error) { return { type: homeConstants.FETCH_CARDS_ERROR, error }; }
 }

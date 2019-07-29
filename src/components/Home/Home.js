@@ -1,19 +1,13 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import styled from 'styled-components';
-import case1 from '../../images/cases/1.png';
-import case2 from '../../images/cases/2.png';
-import case3 from '../../images/cases/3.png';
-import case4 from '../../images/cases/4.png';
-import case5 from '../../images/cases/5.png';
-import case6 from '../../images/cases/6.png';
-import majorCase1 from '../../images/header.png';
 import '../../../node_modules/aos/dist/aos.css';
-import AOS from 'aos';
+import AOS from 'aos'
+import Card from './Card'
+import { bindActionCreators } from 'redux'
+import { homeActions } from '../../actions'
 
 export class Home extends Component {
     constructor(props, context) {
@@ -21,84 +15,50 @@ export class Home extends Component {
         AOS.init();
     }
 
-    static propTypes = {
-
+    componentDidMount() {
+        this.props.homeActions.fetchCardList();
     }
 
     render() {
         return (
             <div className="height-auto full-width overflow-hidden">
+                <div className="full-width bottom-margin-20 top-margin-20">
+                    Show me all work in all industries
+                </div>
                 <div data-aos="flip-down" className="width-85-percent margin-auto top-margin-30">
-                    <div className="width-50-percent border-box float-left height-auto right-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case1 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case1>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
+                    {this.props.home.fetchingCards === true ?
+                        <React.Fragment>
+                            {[...Array(4)].map((item, index) => (
+                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                    <Card
+                                        fetchingCards={true} />
+                                </div>))}
+                        </React.Fragment> :
+                        <div>
+                            {this.props.home.cards.slice(0, 4).map((item, index) => (
+                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                    <Card
+                                        details={item} />
+                                </div>))}
                         </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            A summer island in the Netherlands
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
-                    </div>
-                    <div className="width-50-percent border-box float-left height-auto left-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case2 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case2>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
-                        </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            Not some average banking website
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
-                    </div>
-                    <div className="width-50-percent border-box float-left height-auto right-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case3 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case3>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
-                        </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            Beautiful design meets innovative technology
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
-                    </div>
-                    <div className="width-50-percent border-box float-left height-auto left-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case4 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case4>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
-                        </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            A 100 years of Mondriaan & De Stijl
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            <div className=""></div>
-                            VIEW CASE
-                        </div>
-                    </div>
+                    }
                     <div className="clear-both"></div>
                 </div>
                 <div data-aos="flip-down" className="width-85-percent margin-auto top-margin-30">
-                    <div className="width-70-percent border-box float-left height-auto right-padding-20 bottom-margin-50 cursor-pointer box">
-                        <MajorCase1 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></MajorCase1>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
-                        </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            A summer island in the Netherlands
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
+                    <div className="width-70-percent border-box float-left height-auto right-padding-20 bottom-margin-50 cursor-pointer">
+                        <Card
+                            details={{
+                                website: 'Florensis',
+                                title: 'Rethinking the entire online ecosystem',
+                                image: 'header.png'
+                            }} />
                     </div>
                     <div className="width-30-percent border-box float-left height-auto left-padding-10 bottom-margin-50 cursor-pointer">
                         <div className="height-500 full-width bottom-margin-20 border-box border-top border-bottom">
                             <div className="box">
                                 <div className="height-auto bottom-padding-20 top-padding-20 border-bottom">
                                     <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue bottom-padding-10">
-                                        Bol.com
+                                        MICROSOFT
                                     </div>
                                     <div className="height-auto bottom-margin-10 size-onepointfive-rem">
                                         Tapping into Ireland’s unique gaming culture and bringing a fresh flavour to their Xbox social media channels
@@ -111,7 +71,7 @@ export class Home extends Component {
                             <div className="box">
                                 <div className="height-auto bottom-padding-20 top-padding-20">
                                     <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue bottom-padding-10">
-                                        Bol.com
+                                        O’NEILL
                                     </div>
                                     <div className="height-auto bottom-margin-10 size-onepointfive-rem">
                                         Integrating existing content into O’Neill’s new e-commerce platform
@@ -126,30 +86,22 @@ export class Home extends Component {
                     <div className="clear-both"></div>
                 </div>
                 <div data-aos="flip-down" className="width-85-percent margin-auto top-margin-30">
-                    <div className="width-50-percent border-box float-left height-auto right-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case5 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case5>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
+                    {this.props.home.fetchingCards === true ?
+                        <React.Fragment>
+                            {[...Array(2)].map((item, index) => (
+                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                    <Card
+                                        fetchingCards={true} />
+                                </div>))}
+                        </React.Fragment> :
+                        <div>
+                            {this.props.home.cards.slice(4, 6).map((item, index) => (
+                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                    <Card
+                                        details={item} />
+                                </div>))}
                         </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            A summer island in the Netherlands
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
-                    </div>
-                    <div className="width-50-percent border-box float-left height-auto left-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case6 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case6>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
-                        </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            Not some average banking website
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
-                    </div>
+                    }
                     <div className="clear-both"></div>
                 </div>
                 <div data-aos="flip-down" className="width-85-percent margin-auto top-margin-30">
@@ -158,10 +110,10 @@ export class Home extends Component {
                             <div className="box">
                                 <div className="height-auto bottom-padding-20 top-padding-20 border-bottom">
                                     <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue bottom-padding-10">
-                                        Bol.com
+                                        BUTLINS
                                     </div>
                                     <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                                        Tapping into Ireland’s unique gaming culture and bringing a fresh flavour to their Xbox social media channels
+                                        Enhancing customer experience for personalised holiday planning using real time data
                                     </div>
                                     <div className="height-auto size-pointeight-rem maisonneue blue-color">
                                         VIEW CASE
@@ -171,10 +123,10 @@ export class Home extends Component {
                             <div className="box">
                                 <div className="height-auto bottom-padding-20 top-padding-20">
                                     <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue bottom-padding-10">
-                                        Bol.com
+                                        VACANSESELECT
                                     </div>
                                     <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                                        Integrating existing content into O’Neill’s new e-commerce platform
+                                        Predicting booking behavior for holidays with smart data, voice search and machine learning
                                     </div>
                                     <div className="height-auto size-pointeight-rem maisonneue blue-color">
                                         VIEW CASE
@@ -183,70 +135,33 @@ export class Home extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="width-70-percent border-box float-left height-auto left-padding-10 bottom-margin-50 cursor-pointer box">
-                        <MajorCase1 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></MajorCase1>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
-                        </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            A summer island in the Netherlands
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
+                    <div className="width-70-percent border-box float-left height-auto left-padding-10 bottom-margin-50 cursor-pointer">
+                        <Card
+                            details={{
+                                website: 'Florensis',
+                                title: 'Rethinking the entire online ecosystem',
+                                image: 'header.png'
+                            }} />
                     </div>
                     <div className="clear-both"></div>
                 </div>
                 <div data-aos="flip-down" className="width-85-percent margin-auto top-margin-30 border-bottom">
-                    <div className="width-50-percent border-box float-left height-auto right-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case1 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case1>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
+                    {this.props.home.fetchingCards === true ?
+                        <React.Fragment>
+                            {[...Array(4)].map((item, index) => (
+                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                    <Card
+                                        fetchingCards={true} />
+                                </div>))}
+                        </React.Fragment> :
+                        <div>
+                            {this.props.home.cards.slice(6, 10).map((item, index) => (
+                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                    <Card
+                                        details={item} />
+                                </div>))}
                         </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            A summer island in the Netherlands
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
-                    </div>
-                    <div className="width-50-percent border-box float-left height-auto left-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case2 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case2>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
-                        </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            Not some average banking website
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
-                    </div>
-                    <div className="width-50-percent border-box float-left height-auto right-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case3 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case3>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
-                        </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            Beautiful design meets innovative technology
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
-                    </div>
-                    <div className="width-50-percent border-box float-left height-auto left-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case4 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case4>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
-                        </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            A 100 years of Mondriaan & De Stijl
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            <div className=""></div>
-                            VIEW CASE
-                        </div>
-                    </div>
+                    }
                     <div className="clear-both"></div>
                 </div>
                 <div data-aos="flip-down" className="width-85-percent margin-auto top-margin-30 bottom-padding-30">
@@ -259,30 +174,22 @@ export class Home extends Component {
 
                 </div>
                 <div data-aos="flip-down" className="width-85-percent margin-auto top-margin-30">
-                    <div className="width-50-percent border-box float-left height-auto right-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case5 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case5>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
+                    {this.props.home.fetchingCards === true ?
+                        <React.Fragment>
+                            {[...Array(2)].map((item, index) => (
+                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                    <Card
+                                        fetchingCards={true} />
+                                </div>))}
+                        </React.Fragment> :
+                        <div>
+                            {this.props.home.cards.slice(10).map((item, index) => (
+                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                    <Card
+                                        details={item} />
+                                </div>))}
                         </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            A summer island in the Netherlands
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
-                    </div>
-                    <div className="width-50-percent border-box float-left height-auto left-padding-10 bottom-margin-50 cursor-pointer box">
-                        <Case6 className="height-500 full-width black bottom-margin-20 cover-bg center-bg no-repeat-bg"></Case6>
-                        <div className="height-auto size-pointeight-rem gray-color uppercase maisonneue">
-                            Bol.com
-                        </div>
-                        <div className="height-auto bottom-margin-10 size-onepointfive-rem">
-                            Not some average banking website
-                        </div>
-                        <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                            VIEW CASE
-                        </div>
-                    </div>
+                    }
                     <div className="clear-both"></div>
                 </div>
                 <div className="full-width pale-gray top-padding-70 bottom-padding-70 text-center">
@@ -300,7 +207,7 @@ export class Home extends Component {
                     </div>
                 </div>
                 <div data-aos="flip-down" className="width-85-percent margin-auto top-margin-30 top-padding-50">
-                    <div className="width-30-percent border-box float-left height-auto right-padding-20 box size-threepointfive-rem line-height-50">
+                    <div className="width-30-percent border-box float-left height-auto right-padding-20 size-threepointfive-rem line-height-50">
                         QUESTION?<br />
                         WE ARE HERE<br />
                         TO HELP
@@ -309,12 +216,7 @@ export class Home extends Component {
                         <div className="full-width bottom-margin-50">
                             <div className="width-50-percent right-padding-20 float-left border-box">
                                 <div className="input-container">
-                                    <input
-                                        type="text"
-                                        required
-                                        autoComplete="new-password"
-                                        name="password"
-                                        onChange={this.onChange} />
+                                    <input type="text" required autoComplete="new-password" name="password" onChange={this.onChange} />
                                     <label className="noselect">
                                         Name
                                     </label>
@@ -322,12 +224,7 @@ export class Home extends Component {
                             </div>
                             <div className="width-50-percent left-padding-20 float-left border-box">
                                 <div className="input-container">
-                                    <input
-                                        type="text"
-                                        required
-                                        autoComplete="new-password"
-                                        name="password"
-                                        onChange={this.onChange} />
+                                    <input type="text" required autoComplete="new-password" name="password" onChange={this.onChange} />
                                     <label className="noselect">
                                         Email
                                     </label>
@@ -364,23 +261,18 @@ export class Home extends Component {
     }
 }
 
-const Case1 = styled.div`background-image: url(${case1});`;
-const Case2 = styled.div`background-image: url(${case2});`;
-const Case3 = styled.div`background-image: url(${case3});`;
-const Case4 = styled.div`background-image: url(${case4});`;
-const Case5 = styled.div`background-image: url(${case5});`;
-const Case6 = styled.div`background-image: url(${case6});`;
-const MajorCase1 = styled.div`background-image: url(${majorCase1});`;
 const Client = styled.div`background-image: url(${props => props.client})`;
 
 function mapStateToProps(state) {
-	return {
-		home: state.home
-	};
+    return {
+        home: state.home
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-    
+    return {
+        homeActions: bindActionCreators(homeActions, dispatch)
+    };
 }
 
-export default connect(mapStateToProps, {})(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
