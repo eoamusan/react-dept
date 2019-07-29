@@ -8,6 +8,7 @@ import AOS from 'aos'
 import Card from './Card'
 import { bindActionCreators } from 'redux'
 import { homeActions } from '../../actions'
+import Select from '../common/Select';
 
 export class Home extends Component {
     constructor(props, context) {
@@ -48,42 +49,23 @@ export class Home extends Component {
         return (
             <div ref={this.containerRef} className="height-auto full-width overflow-hidden">
                 <div className="width-85-percent margin-auto bottom-margin-20 top-margin-20 size-onepointfive-rem no-select">
-                    <div className="float-right masked-select cursor-pointer">
-                        <div className="border-bottom-dark">
-                            <div className="float-left">
-                                {this.state.industry === '' ? 'all industries' : this.state.industry}
-                            </div>
-                            <div className="float-left width-20 top-padding-2">
-                                <i className="material-icons">
-                                    arrow_drop_down
-                                </i>
-                            </div>
-                            <div className="clear-both"></div>
-                        </div>
-                        <select className="absolute left top size-onepointone-rem" name="industry" onChange={this.onChange}>
-                            <option value="">all industries</option>
-                            <option>technology</option>
-                            <option>logistics</option>
-                        </select>
-                    </div>
+                    <Select
+                        label={this.state.industry === '' ? 'all industries' : this.state.industry}
+                        options={[
+                            { label: 'all industries', value: '' },
+                            { label: 'technology', value: 'technology' },
+                            { label: 'logistics', value: 'logistics' }]}
+                        onChange={this.onChange} />
                     <div className="float-right light right-margin-10">in</div>
-                    <div className="float-right right-margin-10 masked-select cursor-pointer">
-                        <div className="border-bottom-dark">
-                            <div className="float-left">
-                                {this.state.work === '' ? 'all work' : this.state.work}
-                            </div>
-                            <div className="float-left width-20 top-padding-2">
-                                <i className="material-icons">
-                                    arrow_drop_down
-                                </i>
-                            </div>
-                            <div className="clear-both"></div>
-                        </div>
-                        <select className="absolute left top size-onepointone-rem" name="work" onChange={this.onChange}>
-                            <option value="">all work</option>
-                            <option>play</option>
-                            <option>networking</option>
-                        </select>
+                    <div className="float-right right-margin-10">
+                        <Select
+                            label={this.state.work === '' ? 'all work' : this.state.work}
+                            options={[
+                                { label: 'all work', value: '' },
+                                { label: 'play', value: 'play' },
+                                { label: 'networking', value: 'networking' }]}
+                            onChange={this.onChange} />
+                        <div className="clear-both"></div>
                     </div>
                     <div className="float-right light right-margin-10">Show me</div>
                     <div className="clear-both"></div>
