@@ -1,5 +1,6 @@
 import React from 'react'
 import './styles/styles.css'
+import './styles/responsive.css';
 import './styles/header.css'
 import './styles/footer.css'
 import './styles/teko.css'

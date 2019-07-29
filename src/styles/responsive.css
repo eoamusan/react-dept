@@ -1,0 +1,84 @@
+@media (max-device-width: 480px) {
+  .header {
+    padding: 0 !important;
+    height: 400px !important;
+    text-align: center;
+    margin-bottom: 70px;
+  }
+  .header > div {
+    background-repeat: no-repeat;
+    background-size: cover !important;
+    background-position: -180px 0 !important;
+  }
+  .open {
+    height: 100vh !important;
+  }
+  .header button {
+    width: 85%;
+    left: calc(15% / 2);
+    bottom: -70px !important;
+  }
+  .size-twenty-rem {
+    font-size: 6rem !important;
+    float: none !important;
+    padding-top: 50px;
+  }
+  .width-50-percent,
+  .width-70-percent,
+  .width-30-percent {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .height-500.border-bottom {
+    height: auto !important;
+  }
+  .width-60-percent {
+    width: 70% !important;
+  }
+  .top-padding-70 .width-30-percent {
+    width: 80% !important;
+  }
+  .width-25-percent {
+    width: 50% !important;
+  }
+  .bg-height-200 {
+    background-size: 169px auto;
+  }
+  .line-height-50 {
+    margin-bottom: 30px;
+  }
+  .footer .width-80 {
+    display: none;
+  }
+  .footer-link {
+    float: none !important;
+    font-size: 1.4rem;
+  }
+  .footer > div:first-of-type {
+    width: 100% !important;
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+  }
+  .footer > div:nth-of-type(2) {
+    display: none;
+  }
+  .footer .maisonneue > div {
+    width: 100% !important;
+    text-align: left;
+  }
+  .footer .maisonneue > div:first-of-type {
+    padding-bottom: 20px;
+  }
+  .link {
+    font-size: 2rem !important;
+  }
+  .link .height-60{
+    height: 40px;
+  }
+  .link .height-60 i{
+    font-size: 2.5rem;
+  }
+  .extra {
+    display: none;
+  }
+}
