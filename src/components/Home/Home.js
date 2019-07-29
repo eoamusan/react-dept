@@ -13,30 +13,93 @@ export class Home extends Component {
     constructor(props, context) {
         super(props, context);
         AOS.init();
+
+        this.containerRef = React.createRef();
+        this.state = {
+            work: '',
+            industry: ''
+        }
     }
 
     componentDidMount() {
-        this.props.homeActions.fetchCardList();
+        this.props.homeActions.fetchCardList('all');
+    }
+
+    onChange = (event) => {
+        event.preventDefault();
+
+        const { name, value } = event.target;
+        this.setState({ [name]: value },
+            () => {
+                this.props.homeActions.fetchCardList(this.state.work, this.state.industry);
+            });
+
+        window.scrollTo({
+            top: window.innerHeight - 75,
+            behavior: 'smooth'
+        });
+    }
+
+    componentWillReceiveProps() {
+        AOS.refresh();
     }
 
     render() {
         return (
-            <div className="height-auto full-width overflow-hidden">
-                <div className="full-width bottom-margin-20 top-margin-20">
-                    Show me all work in all industries
+            <div ref={this.containerRef} className="height-auto full-width overflow-hidden">
+                <div className="width-85-percent margin-auto bottom-margin-20 top-margin-20 size-onepointfive-rem no-select">
+                    <div className="float-right masked-select cursor-pointer">
+                        <div className="border-bottom-dark">
+                            <div className="float-left">
+                                {this.state.industry === '' ? 'all industries' : this.state.industry}
+                            </div>
+                            <div className="float-left width-20 top-padding-2">
+                                <i className="material-icons">
+                                    arrow_drop_down
+                                </i>
+                            </div>
+                            <div className="clear-both"></div>
+                        </div>
+                        <select className="absolute left top size-onepointone-rem" name="industry" onChange={this.onChange}>
+                            <option value="">all industries</option>
+                            <option>technology</option>
+                            <option>logistics</option>
+                        </select>
+                    </div>
+                    <div className="float-right light right-margin-10">in</div>
+                    <div className="float-right right-margin-10 masked-select cursor-pointer">
+                        <div className="border-bottom-dark">
+                            <div className="float-left">
+                                {this.state.work === '' ? 'all work' : this.state.work}
+                            </div>
+                            <div className="float-left width-20 top-padding-2">
+                                <i className="material-icons">
+                                    arrow_drop_down
+                                </i>
+                            </div>
+                            <div className="clear-both"></div>
+                        </div>
+                        <select className="absolute left top size-onepointone-rem" name="work" onChange={this.onChange}>
+                            <option value="">all work</option>
+                            <option>play</option>
+                            <option>networking</option>
+                        </select>
+                    </div>
+                    <div className="float-right light right-margin-10">Show me</div>
+                    <div className="clear-both"></div>
                 </div>
                 <div data-aos="flip-down" className="width-85-percent margin-auto top-margin-30">
                     {this.props.home.fetchingCards === true ?
                         <React.Fragment>
                             {[...Array(4)].map((item, index) => (
-                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`} key={index}>
                                     <Card
                                         fetchingCards={true} />
                                 </div>))}
                         </React.Fragment> :
                         <div>
                             {this.props.home.cards.slice(0, 4).map((item, index) => (
-                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                <div key={index} className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
                                     <Card
                                         details={item} />
                                 </div>))}
@@ -89,14 +152,14 @@ export class Home extends Component {
                     {this.props.home.fetchingCards === true ?
                         <React.Fragment>
                             {[...Array(2)].map((item, index) => (
-                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                <div key={index} className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
                                     <Card
                                         fetchingCards={true} />
                                 </div>))}
                         </React.Fragment> :
                         <div>
                             {this.props.home.cards.slice(4, 6).map((item, index) => (
-                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                <div key={index} className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
                                     <Card
                                         details={item} />
                                 </div>))}
@@ -149,14 +212,14 @@ export class Home extends Component {
                     {this.props.home.fetchingCards === true ?
                         <React.Fragment>
                             {[...Array(4)].map((item, index) => (
-                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                <div key={index} className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
                                     <Card
                                         fetchingCards={true} />
                                 </div>))}
                         </React.Fragment> :
                         <div>
                             {this.props.home.cards.slice(6, 10).map((item, index) => (
-                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                <div key={index} className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
                                     <Card
                                         details={item} />
                                 </div>))}
@@ -177,14 +240,14 @@ export class Home extends Component {
                     {this.props.home.fetchingCards === true ?
                         <React.Fragment>
                             {[...Array(2)].map((item, index) => (
-                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                <div key={index} className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
                                     <Card
                                         fetchingCards={true} />
                                 </div>))}
                         </React.Fragment> :
                         <div>
                             {this.props.home.cards.slice(10).map((item, index) => (
-                                <div className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
+                                <div key={index} className={`width-50-percent border-box float-left height-auto bottom-margin-50 cursor-pointer ${index % 2 === 0 ? 'right-padding-10' : 'left-padding-10'}`}>
                                     <Card
                                         details={item} />
                                 </div>))}

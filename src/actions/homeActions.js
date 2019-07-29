@@ -32,11 +32,11 @@ function focusLink(type, link) {
     function focusLink(type, link) { return { type: homeConstants.FOCUS_LINK, linkType: type, link }; }
 }
 
-function fetchCardList(type, link) {
+function fetchCardList(work, industry) {
     return dispatch => {
         dispatch(requestCards());
 
-        fetchCards('all')
+        fetchCards(work, industry)
             .then(
                 cards => {
                     console.log(cards);

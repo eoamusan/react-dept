@@ -20,7 +20,15 @@ const Card = ({ fetchingCards, details }) => {
                         {details.title}
                     </div>
                     <div className="height-auto size-pointeight-rem maisonneue blue-color">
-                        VIEW CASE
+                        <div className="float-left width-20 height-12 relative">
+                            <i className="material-icons blue-color center-item">
+                                arrow_right
+                            </i>
+                        </div>
+                        <div className="float-left view">
+                            VIEW CASE
+                        </div>
+                        <div className="clear-both"></div>
                     </div>
                 </div>}
         </div>
