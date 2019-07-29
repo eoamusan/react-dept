@@ -1,7 +1,10 @@
 import { homeConstants } from '../constants';
 
 const initialState = {
-    headerFixed: false
+    headerFixed: false,
+    showMenu: false,
+    main: 'HOME',
+    region: 'GLOBAL'
 };
 
 export default function home(state = initialState, action) {
@@ -9,12 +12,17 @@ export default function home(state = initialState, action) {
         case homeConstants.FIX_HEADER:
             return {
                 ...state,
-                headerFixed: true
+                headerFixed: action.form
             };
-        case homeConstants.UN_FIX_HEADER:
+        case homeConstants.TOGGLE_MENU:
             return {
                 ...state,
-                headerFixed: false
+                showMenu: action.form
+            };
+        case homeConstants.FOCUS_LINK:
+            return {
+                ...state,
+                [action.linkType]: action.link
             };
         default:
             return state;

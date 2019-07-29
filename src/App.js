@@ -5,6 +5,9 @@ import './styles/footer.css'
 import './styles/teko.css'
 import './styles/MaisonNeue.css'
 import './styles/material-icons.css'
+import './styles/navicon.css'
+import './styles/menu.css'
+import './styles/animate.css'
 
 import { ConnectedRouter } from 'connected-react-router'
 import { history } from './store/store-index'
@@ -46,12 +49,24 @@ class App extends React.Component {
     }
   }
 
+  showMenu = () => {
+    this.props.showMenu(!this.props.home.showMenu);
+  }
+
+  focusLink = (type, link) => {
+    this.props.focusLink(type, link);
+  }
+
   render() {
     return (
       <BrowserRouter>
         <ConnectedRouter history={history}>
           <div className="App">
-            <Header fixed={this.props.home.headerFixed} />
+            <Header
+              fixed={this.props.home.headerFixed}
+              showMenu={this.showMenu}
+              home={this.props.home}
+              focusLink={this.focusLink} />
             <div>
               <Route exact path="/" component={Home} />
             </div>
@@ -71,7 +86,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fixHeader: bindActionCreators(homeActions.fixHeader, dispatch)
+    fixHeader: bindActionCreators(homeActions.fixHeader, dispatch),
+    showMenu: bindActionCreators(homeActions.showMenu, dispatch),
+    focusLink: bindActionCreators(homeActions.focusLink, dispatch)
   };
 }
 
